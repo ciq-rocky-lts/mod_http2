@@ -3,7 +3,7 @@
 
 Name:		mod_http2
 Version:	2.0.26
-Release:	2%{?dist}
+Release:	2.2%{?dist}
 Summary:	module implementing HTTP/2 for Apache 2
 License:	ASL 2.0
 URL:		https://icing.github.io/mod_h2/
@@ -14,6 +14,14 @@ Source0:	https://github.com/icing/mod_h2/releases/download/v%{version}/mod_http2
 #
 # https://bugzilla.redhat.com/show_bug.cgi?id=2268277
 Patch100:      mod_http2-2.0.26-CVE-2024-27316.patch
+# CVE-2026-49975
+Patch101: mod_http2-2.0.26-CVE-2026-49975.patch
+# CVE-2026-48913
+Patch102: mod_http2-2.0.26-CVE-2026-48913.patch
+# CVE-2025-49630
+Patch103: mod_http2-2.0.26-CVE-2025-49630.patch
+# CVE-2026-119618
+Patch104: mod_http2-2.0.26-CVE-2026-119618.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -53,6 +61,14 @@ echo "LoadModule proxy_http2_module modules/mod_proxy_http2.so" > %{buildroot}%{
 %{_httpd_moddir}/mod_proxy_http2.so
 
 %changelog
+* Thu Nov 12 2026 pmp <packager@ciq.com> - 2.0.26-2.2
+- Fix CVE-2026-119618
+
+* Thu Nov 12 2026 pmp <packager@ciq.com> - 2.0.26-2.1
+- Fix CVE-2026-49975
+- Fix CVE-2026-48913
+- Fix CVE-2025-49630
+
 * Fri Apr 05 2024 Luboš Uhliarik <luhliari@redhat.com> - 2.0.26-2
 - Resolves: RHEL-31855 - mod_http2: httpd: CONTINUATION frames
   DoS (CVE-2024-27316)
