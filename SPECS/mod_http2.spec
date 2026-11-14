@@ -3,7 +3,7 @@
 
 Name:		mod_http2
 Version:	2.0.26
-Release:	2.2%{?dist}
+Release:	2.3%{?dist}
 Summary:	module implementing HTTP/2 for Apache 2
 License:	ASL 2.0
 URL:		https://icing.github.io/mod_h2/
@@ -22,6 +22,8 @@ Patch102: mod_http2-2.0.26-CVE-2026-48913.patch
 Patch103: mod_http2-2.0.26-CVE-2025-49630.patch
 # CVE-2026-119618
 Patch104: mod_http2-2.0.26-CVE-2026-119618.patch
+# CVE-2026-57941 - adapted from Rocky Linux: https://git.rockylinux.org/staging/src-rhel/rpms/mod_http2/-/raw/c9/SOURCES/mod_http2-2.0.26-CVE-2026-57941.patch (relative to the source it omits `- stream = NULL;`; `+ stream = NULL;`)
+Patch105: mod_http2-2.0.26-CVE-2026-57941.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -61,6 +63,9 @@ echo "LoadModule proxy_http2_module modules/mod_proxy_http2.so" > %{buildroot}%{
 %{_httpd_moddir}/mod_proxy_http2.so
 
 %changelog
+* Thu Nov 12 2026 pmp <packager@ciq.com> - 2.0.26-2.3
+- Fix CVE-2026-57941
+
 * Thu Nov 12 2026 pmp <packager@ciq.com> - 2.0.26-2.2
 - Fix CVE-2026-119618
 
